@@ -1,5 +1,6 @@
 
 import SendbirdUIKit
+import UIKit
 
 public struct ChatKit {
     public private(set) var text = "Hello, World!"
@@ -28,14 +29,14 @@ public struct ChatKit {
         SBUGlobals.accessToken = accessToken;
     }
     
-    public showChannelList() {
+    public func showChannelList(viewController: UIViewController) {
         let params = GroupChannelListQueryParams()
         params.includeEmptyChannel = false
         params.includeFrozenChannel = true
-        self.channelListQuery = GroupChannel.createMyGroupChannelListQuery(params: params)
+        let channelListQuery = GroupChannel.createMyGroupChannelListQuery(params: params)
 
-        let channelListVC = CKSBUChannelListViewController(channelListQuery: listQuery)
+        let channelListVC = CKSBUChannelListViewController(channelListQuery: channelListQuery)
         let navigationController = UINavigationController(rootViewController: channelListVC)
-        present(navigationController, animated: true)
+        viewController.present(navigationController, animated: true)
     }
 }
